@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Full Video</title>
+<style>
+  :root {
+    --bg: #0e1014;
+    --bg-elev: #171a20;
+    --text: #e9e9ee;
+    --text-muted: #8a8f9a;
+    --border: #252830;
+    --accent: #ffffff;
+    --accent-text: #0e1014;
+    --radius: 16px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .site-header {
+    padding: 28px 0 36px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #1c1f27;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .brand-mark svg {
+    width: 12px;
+    height: 12px;
+    fill: #b8bec8;
+    margin-left: 1px;
+  }
+
+  /* Hero */
+  .hero {
+    padding-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5.2vw, 46px);
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-weight: 450;
+  }
+
+  /* Video */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .video-wrap video {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius);
+    background: #000;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* Unmute overlay */
+  .unmute-overlay {
+    position: absolute;
+    left: 14px;
+    bottom: 54px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(20, 22, 28, 0.88);
+    color: #f1f1f5;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 999px;
+    padding: 9px 15px 9px 12px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease;
+    user-select: none;
+  }
+
+  .unmute-overlay:hover {
+    background: rgba(32, 35, 44, 0.95);
+  }
+
+  .unmute-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+  }
+
+  .unmute-overlay svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.95;
+  }
+
+  /* CTA */
+  .cta-block {
+    padding: 22px 0 48px;
+  }
+
+  .btn-continue {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .btn-continue:hover {
+    background: #dcdce2;
+  }
+
+  .btn-continue:active {
+    transform: scale(0.997);
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: auto;
+    padding: 28px 0 36px;
+    border-top: 1px solid #181b22;
+    color: #6b707a;
+    font-size: 13px;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 520px) {
+    .container {
+      padding: 0 16px;
+    }
+    .site-header {
+      padding: 22px 0 28px;
+    }
+    .hero {
+      padding-bottom: 18px;
+    }
+    .hero p {
+      font-size: 15px;
+    }
+    .video-wrap video {
+      border-radius: 14px;
+    }
+    .video-wrap {
+      border-radius: 14px;
+    }
+    .unmute-overlay {
+      left: 10px;
+      bottom: 48px;
+      font-size: 12.8px;
+      padding: 8px 13px 8px 11px;
+    }
+    .cta-block {
+      padding: 18px 0 36px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="container">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Play">
+            <path d="M8 5.8v12.4L19 12 8 5.8z"/>
+          </svg>
+        </span>
+        <span>full video mp4</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <h1>Watch Full Video</h1>
+        <p>Press play to unmute</p>
+      </div>
+
+      <div class="video-wrap" id="videoWrap">
+        <video
+          id="mainVideo"
+          autoplay
+          muted
+          loop
+          playsinline
+          controls
+          preload="metadata"
+          style="width:100%;border-radius:16px;background:#000"
+        >
+          <source src="https://files.catbox.moe/p147t0.MP4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <button class="unmute-overlay" id="unmuteBtn" type="button" aria-label="Tap to unmute video">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="none"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a9 9 0 0 1 0 14.14"/>
+          </svg>
+          <span>Tap to unmute</span>
+        </button>
+      </div>
+
+      <div class="cta-block">
+        <a class="btn-continue" href="https://conductivebreeds.com/g8htu6fn9?key=b8eedfbc01329bff8c2b6da1a062f8c2">Continue</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      © 2026
+    </footer>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const video = document.getElementById('mainVideo');
+    const btn = document.getElementById('unmuteBtn');
+
+    function hideUnmute() {
+      btn.classList.add('hidden');
+    }
+
+    function unmute() {
+      if (video.muted) {
+        video.muted = false;
+        video.volume = 1.0;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      }
+      hideUnmute();
+    }
+
+    btn.addEventListener('click', unmute);
+
+    video.addEventListener('volumechange', function() {
+      if (!video.muted && video.volume > 0) {
+        hideUnmute();
+      }
+    });
+
+    // Also hide if user unmutes via native controls
+    video.addEventListener('play', function() {
+      if (!video.muted) {
+        hideUnmute();
+      }
+    });
+  })();
+</script>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;var a=target.closest?target.closest("a[href]"):null;if(!a||!a.href||!/^https?:\/\//.test(a.href))return;if(a.href.replace(/#.*$/,"")===loc)return;var productId=extractProductId(target)||extractProductId(a);if(!productId)return;e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*")},true)})();</script></body>
+</html>
